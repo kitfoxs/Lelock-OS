@@ -1,0 +1,13 @@
+{
+  "python": "3.13.5",
+  "platform": "Linux",
+  "python_files": [
+    "project/scripts/bootstrap.py",
+    "project/scripts/verify.py",
+    "project/scripts/check_publication.py",
+    "maintenance_tests/test_publication.py"
+  ],
+  "python_compile": "PASS",
+  "javascript_parse": "PASS",
+  "node": "v22.16.0"
+}

@@ -49,6 +49,18 @@ def main():
     p=argparse.ArgumentParser();p.add_argument('--allow-network',action='store_true');a=p.parse_args()
     if not (3,11)<=sys.version_info[:2]<(3,14): fail('Use Python 3.11–3.13. Do not alter the system Python.')
     lock=json.loads((PROJECT/'resources/source-lock.json').read_text())
+    required=('__init__.py','__main__.py','cli.py','runtime.py','palace.py','hermes_plugin.py')
+    missing=[name for name in required if not (PROJECT/'src/lelock'/name).is_file()]
+    if missing:
+        fail('Application source is missing: '+', '.join(missing)+
+             '. Restore the CURRENT project/src/lelock/ from the maintainer Mac; '
+             'do not use the historical compendium. See docs/SOURCE_RECOVERY.md.')
+    missing_archives=[lock['sources'][name]['file'] for name in ('hermes','mempalace')
+                      if not (PACKET/'upstream'/lock['sources'][name]['file']).is_file()]
+    if missing_archives:
+        fail('Exact upstream archives are missing: '+', '.join(missing_archives)+
+             '. --allow-network installs packages; it does not obtain these archives. '
+             'See project/QUICKSTART.md. No dependencies were installed.')
     runtime=PROJECT/'.runtime';runtime.mkdir(exist_ok=True)
     for name in ('hermes','mempalace'):
         item=lock['sources'][name];archive=PACKET/'upstream'/item['file']

@@ -1,0 +1,17 @@
+test_bootstrap_refuses_missing_source_before_runtime_creation (test_publication.PublicationTests.test_bootstrap_refuses_missing_source_before_runtime_creation) ... ok
+test_checksum_gate_detects_wrong_archive (test_publication.PublicationTests.test_checksum_gate_detects_wrong_archive) ... ok
+test_committed_fixture_has_valid_layout (test_publication.PublicationTests.test_committed_fixture_has_valid_layout) ... ok
+test_git_ignores_launcher_not_source (test_publication.PublicationTests.test_git_ignores_launcher_not_source) ... ok
+test_missing_archives_fail_optional_gate (test_publication.PublicationTests.test_missing_archives_fail_optional_gate) ... ok
+test_missing_source_cannot_pass (test_publication.PublicationTests.test_missing_source_cannot_pass) ... ok
+test_modified_committed_source_fails (test_publication.PublicationTests.test_modified_committed_source_fails) ... ok
+test_old_extension_imports_are_rejected (test_publication.PublicationTests.test_old_extension_imports_are_rejected) ... ok
+test_old_ignore_rule_is_rejected (test_publication.PublicationTests.test_old_ignore_rule_is_rejected) ... ok
+test_staged_but_uncommitted_source_cannot_pass (test_publication.PublicationTests.test_staged_but_uncommitted_source_cannot_pass) ... ok
+test_untracked_source_cannot_pass (test_publication.PublicationTests.test_untracked_source_cannot_pass) ... ok
+test_verify_refuses_missing_source_without_test_receipts (test_publication.PublicationTests.test_verify_refuses_missing_source_without_test_receipts) ... ok
+
+----------------------------------------------------------------------
+Ran 12 tests in 1.636s
+
+OK
