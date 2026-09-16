@@ -1,0 +1,1 @@
+Synthetic study brief: Explain the difference between a proposal and a verified action. Draft a short study note without executing commands or accessing outside files.

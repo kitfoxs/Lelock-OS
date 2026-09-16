@@ -1,0 +1,24 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "lelock-os"
+version = "0.1.0a1"
+description = "Terminal-first, user-owned AI companionship on a bounded Hermes runtime"
+requires-python = ">=3.11,<3.14"
+license = "MIT"
+authors = [{name = "Kit Olivas"}]
+dependencies = []
+
+[project.scripts]
+lelock = "lelock.cli:main"
+
+[project.entry-points."hermes_agent.memory_providers"]
+lelock = "lelock.hermes_plugin:register"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

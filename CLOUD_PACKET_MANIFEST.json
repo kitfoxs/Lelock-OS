@@ -1,0 +1,443 @@
+{
+  "schema": "lelock.cloud-packet/1",
+  "prepared": "2026-09-15",
+  "original_packet": "Lelock_OS_Master_Build_Packet_2026-09-15.zip",
+  "packaging_only": true,
+  "project_files_unchanged": 48,
+  "upstream_archives_unchanged": 3,
+  "omitted": [
+    "private_lineage/open-her-os-main.zip",
+    "docs/HISTORICAL_RESEARCH_HANDOFF.md",
+    "docs/MEMPALACE_HANDOFF.md"
+  ],
+  "changes": "Cloud execution guidance, portable handoff files, entrypoint/document clarification, limited gitignore exception. No implementation changes.",
+  "not_claimed": [
+    "cloud build",
+    "fresh application tests",
+    "Mac acceptance",
+    "full security audit",
+    "public-release approval"
+  ],
+  "files": [
+    {
+      "path": ".gitignore",
+      "bytes": 406,
+      "sha256": "9f8d5774fcfcaff2f271cb3b5e0b117346a28030fe0bd4d8b9d32a9e67c72bfd"
+    },
+    {
+      "path": "00_START_HERE.md",
+      "bytes": 2516,
+      "sha256": "3790e0e51c0048bd03c7652b1397e6edde565dfc877c5a7c0f8ff350b15ec9cf"
+    },
+    {
+      "path": "AGENTS.md",
+      "bytes": 5160,
+      "sha256": "0b9f6803ae11e8b79da41fc0a25bcabbf75cb8c08e77fd84bd32a741492a9b1b"
+    },
+    {
+      "path": "BUILD_STATE.json",
+      "bytes": 2054,
+      "sha256": "1b7a89e20b48a4dc2e7fead6650148b207923785d5edf6724725459cdda252ea"
+    },
+    {
+      "path": "CODE_COMPENDIUM.md",
+      "bytes": 131258,
+      "sha256": "85a416b0bceca7e2bd966c530290ff4b9fd42f2ea70426e8ce12936aa68a9247"
+    },
+    {
+      "path": "GEMINI_MASTER_PROMPT.md",
+      "bytes": 12978,
+      "sha256": "c7cdaf0d7237a6364cc8cbd182475396e48fe5d2a7814af873fb679a50dbe448"
+    },
+    {
+      "path": "MASTER_BLUEPRINT.md",
+      "bytes": 19404,
+      "sha256": "807c042d6f4ba5c961b10617c840fd334ead143306d9620cc51b1358f93f54b3"
+    },
+    {
+      "path": "NEXT_ACTION.md",
+      "bytes": 503,
+      "sha256": "3224ec5714c4064c57d93d9404c3effc447ab83655c0da7c380a53cec2ee50e7"
+    },
+    {
+      "path": "README.md",
+      "bytes": 516,
+      "sha256": "36db40f7171efcb6050f2e9a4c9418392c43e307cb0048bd93cea44d47170883"
+    },
+    {
+      "path": "TERMINAL_BUILD_PROMPT.md",
+      "bytes": 2012,
+      "sha256": "2fef41fbd788c7401510b35fb25710875630e2f8ac79eb3ebd607528fce95462"
+    },
+    {
+      "path": "docs/ACCEPTANCE_MATRIX.md",
+      "bytes": 6014,
+      "sha256": "77ed16e63bf57e29108d13ebbd1ec6d52441e9d87c9aa9c2a5f1cbbb8f25a618"
+    },
+    {
+      "path": "docs/BUILD_RUNBOOK.md",
+      "bytes": 9584,
+      "sha256": "1489d8a2a5b7eb01488cbf1869af3a5725478a32d1c75ac8dd0d3596a11dabbe"
+    },
+    {
+      "path": "docs/CLOUD_WORKFLOW.md",
+      "bytes": 4866,
+      "sha256": "09b67eb5a7213d4f2f0fb82ef3f5fb363140fc12d60a7fbc07b5310e57f2a91d"
+    },
+    {
+      "path": "docs/DELIVERY_REPORT_TEMPLATE.md",
+      "bytes": 1330,
+      "sha256": "5c8ae7e434b9ea6dd85aadd7f80eaceaf79fe004cb8fcba7224cf9862ca808ff"
+    },
+    {
+      "path": "docs/FIELD_GUIDE.md",
+      "bytes": 2829,
+      "sha256": "719ed92cac8bc4f853c5100685fd3d8d42984fdee5ef1ca4a70aafa1a3f186ee"
+    },
+    {
+      "path": "docs/KNOWN_LIMITS.md",
+      "bytes": 3190,
+      "sha256": "3838a4e619a25981cddbeb1be37d36bcf9e354c41f2bfa135b1e399b5171136f"
+    },
+    {
+      "path": "docs/SECURITY_PRIVACY_RECOVERY.md",
+      "bytes": 5790,
+      "sha256": "0afb208c2a110f7a5b3f4027bc69fcb7199a4b9e20747fd418f73db80fc6f7d9"
+    },
+    {
+      "path": "docs/SOURCE_CONTRACTS.md",
+      "bytes": 3575,
+      "sha256": "6d2c38055beb15705725a1ed0f332aa1e6292863b4f58ea42f0aa9510cf8b16a"
+    },
+    {
+      "path": "handoff/MAC_ACCEPTANCE.md",
+      "bytes": 1185,
+      "sha256": "0732af0407ae531eb9d2d97b3457b2a71ba57bee1d3be5aeb0018390cbd19094"
+    },
+    {
+      "path": "handoff/NEXT_ACTION.md",
+      "bytes": 498,
+      "sha256": "69d04d7997f738f307d86807fb2a97cb7dc604a8619c89f0709f8ca1ccc73a6b"
+    },
+    {
+      "path": "handoff/REVIEW_FINDINGS.md",
+      "bytes": 722,
+      "sha256": "ef6ca83c89b7cd92f47215d81d6a8a4a9f4e61373c1a08628a8e9f4754c770d8"
+    },
+    {
+      "path": "handoff/STATUS.json",
+      "bytes": 1008,
+      "sha256": "2890be386f51935cb6719f22f51c6d579982d0cef11cf4c16e7c6309968bbc3c"
+    },
+    {
+      "path": "project/.gitignore",
+      "bytes": 101,
+      "sha256": "1db3c60b8fee038ef0834345c8c0f988469ecc6d7b0f137ade429c8d6679aa34"
+    },
+    {
+      "path": "project/CONTRIBUTING.md",
+      "bytes": 903,
+      "sha256": "c3dea76bd1684cc5d4153653012a0b1a67e6c8d2eefb86c6cd9c5c9c54ec0101"
+    },
+    {
+      "path": "project/LICENSE",
+      "bytes": 1067,
+      "sha256": "93e3226f51c2f7a89e55860c80fa1c8d310bf6ce8d98bf6540d0781475dd703b"
+    },
+    {
+      "path": "project/PHILOSOPHY.md",
+      "bytes": 1341,
+      "sha256": "4855af1925494c73dfb87367074d79f7f79b2284e27c3871a30761a2b96e63d2"
+    },
+    {
+      "path": "project/PRIVACY.md",
+      "bytes": 1409,
+      "sha256": "aea4a6483af3ab393d6e24487268c530c3f11184d7a24ea178dc7b0ed4348a3d"
+    },
+    {
+      "path": "project/QUICKSTART.md",
+      "bytes": 2774,
+      "sha256": "1e3de4ca72c6402eea200ea96ffed3b6f996f86017d6473f98a10cc6e5f3725a"
+    },
+    {
+      "path": "project/README.md",
+      "bytes": 2666,
+      "sha256": "3590251b9daa4cc7cd4eff796314c3184206c7f28b50350bf3639a43e862989a"
+    },
+    {
+      "path": "project/SECURITY.md",
+      "bytes": 1028,
+      "sha256": "84c28ea1b0d14f1971ba8ad9815647113c40478e0013613721048208904ce20b"
+    },
+    {
+      "path": "project/THIRD_PARTY_NOTICES.md",
+      "bytes": 1904,
+      "sha256": "3042e02eebc5b90365fa17d72a09b668417a4d601c710d2428a4f2a8ea05a463"
+    },
+    {
+      "path": "project/examples/samantha-v2.json",
+      "bytes": 874,
+      "sha256": "32c33b75d5ec831f8d180dfd94bbaae733b9e434251e11a0e5834466c55217c5"
+    },
+    {
+      "path": "project/examples/study-brief.txt",
+      "bytes": 168,
+      "sha256": "1f5ba96e7341733db4bc070b8ae6f59bc59fc8a8170930d0a9cbf759cb126604"
+    },
+    {
+      "path": "project/pyproject.toml",
+      "bytes": 565,
+      "sha256": "f9e1c5ac964bada2468f35c4e44b323f667a508b2e8d77313bd4484c522398ce"
+    },
+    {
+      "path": "project/resources/hermes_contract/LICENSE",
+      "bytes": 1070,
+      "sha256": "821556e6336796450ab852d375117b48a4887e71d255794fd6318d99982a5ab6"
+    },
+    {
+      "path": "project/resources/hermes_contract/agent/__init__.py",
+      "bytes": 143,
+      "sha256": "4b8495cff6ef2502e6cf2f42e384670d5da7a9cfe7d155e4b52fe971afc4c362"
+    },
+    {
+      "path": "project/resources/hermes_contract/agent/jiter_preload.py",
+      "bytes": 929,
+      "sha256": "98e6b8131e74255f21000f55f4d77709e8c34200374819654dbea763cdbf6d1a"
+    },
+    {
+      "path": "project/resources/hermes_contract/agent/memory_provider.py",
+      "bytes": 9576,
+      "sha256": "959e19c95c2dafc9b74d53d1aeff19ee945a557520cf7623f4ecc355b22c180d"
+    },
+    {
+      "path": "project/resources/licenses/hermes-LICENSE",
+      "bytes": 1070,
+      "sha256": "821556e6336796450ab852d375117b48a4887e71d255794fd6318d99982a5ab6"
+    },
+    {
+      "path": "project/resources/licenses/mempalace-LICENSE",
+      "bytes": 1079,
+      "sha256": "81dc6cc278d80f0f1b028ecd86af30d61e441b9ae53d9d9a2ed19389ba657a5d"
+    },
+    {
+      "path": "project/resources/licenses/soultavern-LICENSE",
+      "bytes": 1082,
+      "sha256": "58bcfb4fa362967845264cc9f13eb23b97dc55aabe14ec837df3ff370900cfa4"
+    },
+    {
+      "path": "project/resources/source-lock.json",
+      "bytes": 1021,
+      "sha256": "781b36172cd8b73c840d10b1a77362fcb36d4f0a7018b09b8e283e3b766bbd3a"
+    },
+    {
+      "path": "project/scripts/bootstrap.py",
+      "bytes": 4670,
+      "sha256": "8caa217fc9764c97a0a71730c75796b19608cb3140344a68d0f84ad82959f5ab"
+    },
+    {
+      "path": "project/scripts/live_full_stack_probe.py",
+      "bytes": 5170,
+      "sha256": "768eb4d39fa11a9a2a20f09eb81d0785fba268ed3b8e01ee5a03b3ed824768fd"
+    },
+    {
+      "path": "project/scripts/live_model_probe.py",
+      "bytes": 2207,
+      "sha256": "187b7f166f11da775cd3b33aa824cb00a2ba89437116a6c2f1e508dde2e4af53"
+    },
+    {
+      "path": "project/scripts/live_palace_probe.py",
+      "bytes": 1840,
+      "sha256": "c28ed8936be7a80c3c2ca8230b6fb9d7bd5700cee2f9a214bd477e3f4aac1282"
+    },
+    {
+      "path": "project/scripts/source_contracts.py",
+      "bytes": 2425,
+      "sha256": "99cb685996423314cba2be48b6da300ebc9130b693bf542d2aeeccab37a56014"
+    },
+    {
+      "path": "project/scripts/verify.py",
+      "bytes": 1174,
+      "sha256": "c39ec825e6f971f7a02f94c9126e5900df3f2110b985210ab9226e3789fc7184"
+    },
+    {
+      "path": "project/src/lelock/__init__.py",
+      "bytes": 109,
+      "sha256": "8853e6fd2533aa5d53db6966948d46c7828798cd895e4b5266c67faa363ea2ea"
+    },
+    {
+      "path": "project/src/lelock/__main__.py",
+      "bytes": 47,
+      "sha256": "79ee6f134c5c5193377cf9b189cbdcc3e2095e49ba9cec310114441c15a917c4"
+    },
+    {
+      "path": "project/src/lelock/_vendor/__init__.py",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "project/src/lelock/_vendor/soultavern/LICENSE",
+      "bytes": 1082,
+      "sha256": "58bcfb4fa362967845264cc9f13eb23b97dc55aabe14ec837df3ff370900cfa4"
+    },
+    {
+      "path": "project/src/lelock/_vendor/soultavern/__init__.py",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "project/src/lelock/_vendor/soultavern/parse.py",
+      "bytes": 5371,
+      "sha256": "09dbda48518de22cf11932148e6b38ce32f37504b3f4fc182c05a0235a9ea660"
+    },
+    {
+      "path": "project/src/lelock/bundle.py",
+      "bytes": 2784,
+      "sha256": "bc3b19c473f02eac6ae936a4962bb1c45a67999bcad8e94a20c1d7718f161b7e"
+    },
+    {
+      "path": "project/src/lelock/cards.py",
+      "bytes": 5626,
+      "sha256": "b05ab9b368c93170bbe8c427d04da6f4109db96f0ed228ac3f82ac20c61ea96f"
+    },
+    {
+      "path": "project/src/lelock/cli.py",
+      "bytes": 10846,
+      "sha256": "0ba4f6469d1698adbcc1208e62b1abdb4c4d62bb0e669091e26e37bd2ada24b1"
+    },
+    {
+      "path": "project/src/lelock/common.py",
+      "bytes": 3457,
+      "sha256": "9a3ddfdaee86e57cff65f6d4caa7a9632abf7937dd08c5c73783489869f1869f"
+    },
+    {
+      "path": "project/src/lelock/config.py",
+      "bytes": 4966,
+      "sha256": "d61494b7d6ac5fac6a6729c341eab75a72b7c51462f3758080dff86864b02f05"
+    },
+    {
+      "path": "project/src/lelock/hermes_plugin.py",
+      "bytes": 4277,
+      "sha256": "d80da0415a0789e0ef26bb0b3b4f250b06c5f331cf306d1a1069aaf511475878"
+    },
+    {
+      "path": "project/src/lelock/journal.py",
+      "bytes": 5021,
+      "sha256": "fa59c27ec2717a6ea90b18ce24e66ff68805ab423e70a0e454c3f0b58b049e91"
+    },
+    {
+      "path": "project/src/lelock/palace.py",
+      "bytes": 6854,
+      "sha256": "2e77c0d2f054ba563532dffe67c3bd5d97a084a2088f7af6512ec451c29a6b73"
+    },
+    {
+      "path": "project/src/lelock/runtime.py",
+      "bytes": 6856,
+      "sha256": "8af3a057932ef02bdb1c5b3798df5c2e9b55bee050a533ec668879ea09738559"
+    },
+    {
+      "path": "project/src/lelock/service.py",
+      "bytes": 11313,
+      "sha256": "6dafa565b8aa12554248a821da559634f26a67041d534af7c3083316c5ad1694"
+    },
+    {
+      "path": "project/src/lelock/workspace.py",
+      "bytes": 3543,
+      "sha256": "56dd67ed415ee21aa0b22a3430a6753954671762b7ad1fad7e533e7c3abd3229"
+    },
+    {
+      "path": "project/tests/helpers.py",
+      "bytes": 1873,
+      "sha256": "7f465f6830d0fa0c66330f0b6c68b20862988a0366f2a00d81db9a6138618698"
+    },
+    {
+      "path": "project/tests/test_cards.py",
+      "bytes": 4036,
+      "sha256": "7ef38d861764a13c56e13b4fb92fb9abfcf5baf8e548832394950f662afe65c5"
+    },
+    {
+      "path": "project/tests/test_core.py",
+      "bytes": 12220,
+      "sha256": "29d26fcbbbed7d98d605677aafa4398bb85f3b06ae1d56ecccefdcc81055c020"
+    },
+    {
+      "path": "project/tests/test_provider.py",
+      "bytes": 2099,
+      "sha256": "6c7c3e657f42c50e6c04561a2ce66a7ec2772b75d7c538a9695aa711f8d77da6"
+    },
+    {
+      "path": "project/tests/test_rpc.py",
+      "bytes": 3096,
+      "sha256": "ebd1f19c8c3f78983d259a98e2db603fd4070b5634e91ca1f5f27082cb9f6a05"
+    },
+    {
+      "path": "receipts/authoring-preparation.json",
+      "bytes": 450,
+      "sha256": "97da2b4a107529ac6240d28f539b19d4005fd6ac765bb5be3fe31a8dc687096e"
+    },
+    {
+      "path": "receipts/full-stack-A.json",
+      "bytes": 143,
+      "sha256": "c90c2a6c1f260f8b9d27500eed6efefafbf7cf0e3d0bd270601b5bc52a37bbf8"
+    },
+    {
+      "path": "receipts/full-stack-B.json",
+      "bytes": 143,
+      "sha256": "711377d4983b86357aeb9f29e0baf889f8b615fc61f2d73818fbede2d165a9c7"
+    },
+    {
+      "path": "receipts/live-palace.json",
+      "bytes": 142,
+      "sha256": "fbb6273bcc17283353b91c40f192de683b767d2d5a2fad68fbd84b9a4163d527"
+    },
+    {
+      "path": "receipts/model-A.json",
+      "bytes": 138,
+      "sha256": "d99bb679815d7fa2cb6a91d6fcbd03e72be6d6a681dd54d0e29e70279b19b5d4"
+    },
+    {
+      "path": "receipts/model-B.json",
+      "bytes": 138,
+      "sha256": "5fbd98cd7d101656c31a58fd5721893ffb02f7ecc82ce0aedf46ad02f4954839"
+    },
+    {
+      "path": "receipts/offline-result.json",
+      "bytes": 333,
+      "sha256": "9bb0e67cc48c4c226cd1736aeeeb1daccb5da7c85de4df4aa42fcd01267e707a"
+    },
+    {
+      "path": "receipts/offline-tests-initial.log",
+      "bytes": 4893,
+      "sha256": "80f1450fee157ebf602c9179a3ef15a20eba8e1badc62a6b47039eb2055f7ab8"
+    },
+    {
+      "path": "receipts/offline-tests.log",
+      "bytes": 7167,
+      "sha256": "534a0d7032c88da5343b03bba253390ce03e9ef8618ae957ead9459b7e83010c"
+    },
+    {
+      "path": "receipts/source-contracts.json",
+      "bytes": 410,
+      "sha256": "6277a1435ca2251fba8b0762817d419ea1de8ad25177ed560cfbe7cc9e9d506f"
+    },
+    {
+      "path": "receipts/target-mac-manual.json",
+      "bytes": 148,
+      "sha256": "42ee7be288b6a0a1dfb9fd54995d83ba3bd848845b87d409a0fbfaa367118cf5"
+    },
+    {
+      "path": "upstream/SoulTavern-2.0.3.zip",
+      "bytes": 158098,
+      "sha256": "4fdc4e1d1e555ea7748b797ddf79cee0806323ddc1ba09fe2440a7937f4a7b7b"
+    },
+    {
+      "path": "upstream/hermes-agent-2026.9.14.zip",
+      "bytes": 78839528,
+      "sha256": "c3694a72bf739c76718e31529102f0e4c16f225c2fba0bec3136ba92e127addc"
+    },
+    {
+      "path": "upstream/mempalace-3.9.0.zip",
+      "bytes": 26282439,
+      "sha256": "8407eb0390bdc8d5a3bba31ce64cd0fda91d8a5a73b5c014995084cd72543bc9"
+    }
+  ]
+}

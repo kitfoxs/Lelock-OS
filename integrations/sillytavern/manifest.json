@@ -1,0 +1,14 @@
+{
+    "display_name": "Lelock OS Agent Harness",
+    "loading_order": 20,
+    "requires": [],
+    "optional": [],
+    "js": "index.js",
+    "css": "style.css",
+    "author": "Kit Olivas & Ada Marie",
+    "version": "1.0.0",
+    "homePage": "https://github.com/kitfoxs/lelock-os",
+    "hooks": {
+        "activate": "init"
+    }
+}

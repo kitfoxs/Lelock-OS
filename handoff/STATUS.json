@@ -1,0 +1,298 @@
+{
+  "schema": "lelock.cloud-handoff/1",
+  "prepared": "2026-09-15",
+  "product": "Lelock OS terminal alpha",
+  "version": "0.1.0a1",
+  "overall": "CLOUD_IMPLEMENTATION_COMPLETE_MAC_ACCEPTANCE_NOT_RUN",
+  "not_claimed": "LOCAL_ALPHA_VERIFIED. That label requires the target Mac, a real model endpoint, and the human gates. None were available here.",
+  "source_revision": null,
+  "last_action": "Repaired two confirmed defects with regression tests, installed the frozen isolated runtimes, and ran every gate decidable without a model endpoint.",
+  "environment": {
+    "host": "Linux 4.19.0-gvisor x86_64 (Lovable cloud sandbox)",
+    "interpreter": "CPython 3.13.12",
+    "uv": "0.9.29 (provisioned from the nixpkgs binary cache; not preinstalled)",
+    "is_target_mac": false
+  },
+  "stage_status": {
+    "gemini_implementation": "PASS",
+    "jules_review": "PASS (automated source review; findings triaged below)",
+    "mac_acceptance": "NOT_RUN"
+  },
+  "reference_evidence": "The original authoring receipts were treated as baseline history and re-run, not trusted. Every status below comes from a command executed in this environment.",
+  "commands": [
+    {
+      "command": "python3 project/scripts/verify.py",
+      "exit_code": 1,
+      "when": "baseline, before any edit",
+      "result": "FAIL - 1 of 86 offline tests failed (test_symlink_parent_denied)",
+      "evidence": "receipts/offline-tests-initial.log"
+    },
+    {
+      "command": "python3 project/scripts/source_contracts.py",
+      "exit_code": 0,
+      "result": "PASS - 8/8 static checks",
+      "evidence": "receipts/source-contracts.json"
+    },
+    {
+      "command": "python3 -m compileall -q project/src project/scripts project/tests",
+      "exit_code": 0,
+      "result": "PASS"
+    },
+    {
+      "command": "python3 project/scripts/bootstrap.py --allow-network",
+      "exit_code": 0,
+      "result": "PASS - frozen uv sync for hermes and mempalace; lelock-os installed --no-deps into the hermes venv",
+      "evidence": "receipts/dependency-install.json, receipts/logs/dependency-install.log"
+    },
+    {
+      "command": "project/lelock --help",
+      "exit_code": 0,
+      "result": "PASS - documented subcommands listed"
+    },
+    {
+      "command": "python3 project/scripts/live_palace_probe.py",
+      "exit_code": 0,
+      "result": "PASS - real MemPalace add/get/search/checkpoint on a synthetic new home",
+      "evidence": "receipts/live-palace.json"
+    },
+    {
+      "command": "<hermes venv python> receipts/logs/real_stack_no_model.py",
+      "exit_code": 0,
+      "result": "PASS - 16/16 checks against the real installed Hermes runtime and real Palace, no model contacted",
+      "evidence": "receipts/real-stack-no-model.json"
+    },
+    {
+      "command": "project/lelock init|doctor|remember|recall|memory-list|export|inspect-datachip|restore|card-review|card-activate",
+      "exit_code": 0,
+      "result": "PASS - synthetic end-to-end CLI against the real Palace",
+      "evidence": "receipts/cli-offline-smoke.json"
+    },
+    {
+      "command": "python3 project/scripts/verify.py",
+      "exit_code": 0,
+      "when": "after the repairs",
+      "result": "PASS - 95 tests (86 original + 9 new regression tests), 0 skipped",
+      "evidence": "receipts/offline-tests.log, receipts/offline-result.json"
+    },
+    {
+      "command": "python3 project/scripts/live_model_probe.py --endpoint <URL> --model <NAME> --label A",
+      "exit_code": null,
+      "result": "NOT_RUN - requires an inference endpoint that was not authorized here"
+    },
+    {
+      "command": "python3 project/scripts/live_full_stack_probe.py --endpoint <URL> --model <NAME> --label A",
+      "exit_code": null,
+      "result": "NOT_RUN - same prerequisite"
+    }
+  ],
+  "defects": [
+    {
+      "id": "D1",
+      "severity": "high",
+      "title": "Workspace symlinked-parent escape: bounded read/write could reach outside the workspace",
+      "found_by": "supplied offline suite (test_symlink_parent_denied failed on this kernel)",
+      "detail": "workspace.py delegated symlink refusal to a single O_DIRECTORY|O_NOFOLLOW open. On this gVisor 4.19 kernel that open does not return ELOOP for a symlinked directory, so it followed the link. Reads of files outside the workspace succeeded and an approved write would have landed outside it.",
+      "fix": "Refusal is now enforced in code rather than delegated to one kernel flag. Each path component is lstat-checked, then opened with O_DIRECTORY|O_NOFOLLOW, then confirmed to be the same (st_dev, st_ino) as the lstat reported. The root descriptor is inode-verified too, and read() re-checks the final component.",
+      "files": [
+        "project/src/lelock/workspace.py"
+      ],
+      "regression_tests": 5,
+      "verified": "All 5 new tests fail against the original file and pass against the repaired one.",
+      "acceptance_ids": [
+        "A11",
+        "A13"
+      ]
+    },
+    {
+      "id": "D2",
+      "severity": "medium",
+      "title": "private_dir accepted a symlinked leaf directory and chmod'd the link target",
+      "found_by": "automated source review, then confirmed by direct execution",
+      "detail": "private_dir pre-checked is_symlink() and then called Path.mkdir(exist_ok=True). That call swallows the error for an existing symlink-to-directory because its fallback is_dir() resolves the link, and the following chmod-by-path follows it as well. The pre-check was therefore the only guard, and it is not atomic. private_dir gates the application home, palace, runtime, cards, exports, identity-history and the workspace root.",
+      "fix": "After mkdir, the directory is opened and the descriptor is compared against lstat by (st_dev, st_ino); permissions are applied with fchmod through that descriptor instead of by path.",
+      "files": [
+        "project/src/lelock/common.py"
+      ],
+      "regression_tests": 4,
+      "verified": "The evaded-pre-check test fails against the original file and passes against the repaired one. The link target's mode is asserted unchanged.",
+      "scope_note": "Symlinked ANCESTORS remain allowed on purpose, and a test pins that: macOS /tmp and /var are symlinks, so refusing ancestors would break the target host. Only the leaf is constrained.",
+      "acceptance_ids": [
+        "A01",
+        "A13"
+      ]
+    }
+  ],
+  "reviewed_not_defects": [
+    {
+      "item": "Journal.finish() has no WHERE state='applying' guard, unlike reject().",
+      "conclusion": "Not a defect today. Its only caller goes through claim(), which does BEGIN IMMEDIATE plus a pending-state check in one transaction, so single-use approval holds. Left unchanged rather than edited for appearance.",
+      "action": "Recorded here so a future second caller is not added without re-checking."
+    },
+    {
+      "item": "A test asserted that fiction content could be stored in a personal-scope home.",
+      "conclusion": "The product was right and the test was wrong. make_record refuses kind='fiction' outside scope='fiction'. The check was corrected to assert the refusal, and cross-home isolation was verified separately."
+    }
+  ],
+  "acceptance": {
+    "A01": {
+      "status": "PASS",
+      "evidence": "Worked in an isolated copy; the uploaded archive was never modified. No private Ada history, private Palace, unrelated account, or native Mac app was read. Archive scanned for unsafe paths and links before extraction."
+    },
+    "A02": {
+      "status": "PASS",
+      "evidence": "receipts/source-contracts.json (8/8) plus sha256 match for all three supplied archives against an unchanged source-lock.json."
+    },
+    "A03": {
+      "status": "PASS",
+      "evidence": "receipts/offline-tests.log - 95 tests, 0 failures, 0 skipped, exit 0."
+    },
+    "A04": {
+      "status": "PARTIAL",
+      "evidence": "receipts/dependency-install.json - frozen install and CLI verified on cloud Linux/3.13.12.",
+      "outstanding": "The assertion names the target Mac. macOS install and CLI are NOT_RUN."
+    },
+    "A05": {
+      "status": "PASS",
+      "evidence": "receipts/live-palace.json - real MemPalace service, synthetic new home, add/get/search/checkpoint."
+    },
+    "A06": {
+      "status": "BLOCKED",
+      "blocker": "Needs a real Hermes model endpoint. Configuring external runtime inference was not authorized here."
+    },
+    "A07": {
+      "status": "BLOCKED",
+      "blocker": "Same prerequisite as A06."
+    },
+    "A08": {
+      "status": "NOT_RUN",
+      "blocker": "Human-in-the-loop gate; must be observed by a person on the target Mac."
+    },
+    "A09": {
+      "status": "PARTIAL",
+      "evidence": "real-stack-no-model.json - correction supersedes the earlier active fact on a real Palace; fiction is refused outside fiction scope; personal recall returns no fiction content.",
+      "outstanding": "'Unknown answer admits no evidence' needs a model turn."
+    },
+    "A10": {
+      "status": "PARTIAL",
+      "evidence": "cli-offline-smoke.json - a separate process recalls the stored fact, and the selected identity survives; memory survives a card activation.",
+      "outstanding": "'Without claiming omitted facts' needs a model turn."
+    },
+    "A11": {
+      "status": "PASS",
+      "evidence": "real-stack-no-model.json - the real constructed runtime exposes exactly the five bounded functions and no approval tool; terminal, shell, bash, approve, lelock_approve, web_search and read_file are all denied; ../, absolute, dotfile and symlinked-parent paths are denied in code and leak nothing. A hostile V2 card's system_prompt, post_history_instructions, character_book and extensions are ignored at import.",
+      "note": "A model actually attempting these calls is part of A06/A07."
+    },
+    "A12": {
+      "status": "PASS",
+      "evidence": "Offline failure tests plus bounded injection against the installed adapter: a failing transport raises instead of acknowledging persistence, the pending entry is retained, and the recovery flush clears it only after a successful readback."
+    },
+    "A13": {
+      "status": "PASS",
+      "evidence": "cli-offline-smoke.json - card staged inert, activation refused without --approve, activation reports permissions_changed false and leaves the tool surface at five, prior identity preserved in identity-history, and a datachip exported and restored into a blank home with an independently selected endpoint. The artifact contains no endpoint key, no credential and no raw transcript."
+    },
+    "A14": {
+      "status": "NOT_RUN",
+      "blocker": "Temporary-session behaviour requires a chat turn, so it depends on A06."
+    },
+    "A15": {
+      "status": "PARTIAL",
+      "evidence": "real-stack-no-model.json - a second process is refused the home lock and the lock is reusable after the owner exits.",
+      "outstanding": "Stop/cancel behaviour and owned-child cleanup during an interactive run, on macOS."
+    },
+    "A16": {
+      "status": "NOT_RUN",
+      "blocker": "Human review gate."
+    },
+    "A17": {
+      "status": "BLOCKED",
+      "blocker": "Portability gate; needs a second distinct model endpoint."
+    },
+    "A18": {
+      "status": "NOT_AUTHORIZED",
+      "blocker": "Public-release review is explicitly out of scope for this work."
+    }
+  },
+  "blockers": [
+    {
+      "id": "B1",
+      "gates": [
+        "A06",
+        "A07",
+        "A14",
+        "A17"
+      ],
+      "need": "An inference endpoint and model name the owner explicitly selects, plus authorization to contact it. Nothing in this packet chooses one.",
+      "note": "For a local endpoint no API key is required; for a remote one, set the environment variable named in config and do not commit it."
+    },
+    {
+      "id": "B2",
+      "gates": [
+        "A04",
+        "A15",
+        "A16",
+        "A08"
+      ],
+      "need": "The target Mac. Apple Silicon wheel availability for the frozen locks is unproven from Linux.",
+      "note": "uv must be present on the Mac by an approved official method before bootstrap.py --allow-network."
+    },
+    {
+      "id": "B3",
+      "gates": [
+        "installation"
+      ],
+      "need": "upstream/hermes-agent-2026.9.14.zip and upstream/mempalace-3.9.0.zip restored beside project/. They are excluded from the delivered ZIP for size.",
+      "note": "SoulTavern-2.0.3.zip is not needed to install - its reviewed parser is already vendored - but restore it to keep source-lock provenance complete."
+    }
+  ],
+  "next_action": "Restore the two required upstream archives, then follow handoff/NEXT_ACTION.md on the target Mac.",
+  "external_effects": {
+    "google_uploaded": false,
+    "github_changed": false,
+    "billing_changed": false,
+    "live_model_used": false,
+    "private_palace_accessed": false,
+    "native_app_modified": false,
+    "deployed_or_published": false,
+    "source_lock_modified": false
+  },
+  "policy": "Store only reviewed synthetic summaries and portable paths here; no secrets or personal runtime state.",
+  "delivery_validation": {
+    "artifact": "Lelock_OS_Lovable_Source_Result.zip",
+    "reopened": true,
+    "crc_test": "OK",
+    "entries": 108,
+    "first_party_files_differing_from_pristine": 3,
+    "source_lock_byte_identical": true,
+    "from_extracted_zip": [
+      {
+        "command": "python3 project/scripts/verify.py",
+        "exit_code": 0,
+        "result": "95 tests OK"
+      },
+      {
+        "command": "python3 -m compileall -q project/src project/scripts project/tests",
+        "exit_code": 0
+      },
+      {
+        "command": "python3 project/scripts/source_contracts.py",
+        "exit_code": 1,
+        "result": "FileNotFoundError on upstream/hermes-agent-2026.9.14.zip - expected; it reads the frozen archives directly"
+      },
+      {
+        "command": "python3 project/scripts/source_contracts.py (after restoring only the two required archives)",
+        "exit_code": 0,
+        "result": "PASS 8/8 - restore instructions proven sufficient; SoulTavern archive absent"
+      }
+    ],
+    "excluded": [
+      "project/.runtime/ virtualenvs",
+      "__pycache__",
+      "*.pyc",
+      "*.egg-info",
+      "generated project/lelock launcher",
+      "runtime *.sqlite3",
+      "upstream/*.zip"
+    ],
+    "credential_scan": "no matches over the staged tree; logs sanitised to <PACKET_ROOT>/<WORK>"
+  }
+}

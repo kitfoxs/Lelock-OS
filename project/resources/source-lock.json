@@ -1,0 +1,28 @@
+{
+  "format": 1,
+  "prepared": "2026-09-15",
+  "provenance": "User-supplied snapshots; filenames are labels, not independently attested upstream releases.",
+  "sources": {
+    "hermes": {
+      "file": "hermes-agent-2026.9.14.zip",
+      "root": "hermes-agent-2026.9.14",
+      "sha256": "c3694a72bf739c76718e31529102f0e4c16f225c2fba0bec3136ba92e127addc",
+      "upstream": "https://github.com/NousResearch/hermes-agent",
+      "manifest_version": "0.21.3"
+    },
+    "mempalace": {
+      "file": "mempalace-3.9.0.zip",
+      "root": "mempalace-3.9.0",
+      "sha256": "8407eb0390bdc8d5a3bba31ce64cd0fda91d8a5a73b5c014995084cd72543bc9",
+      "upstream": "https://github.com/MemPalace/mempalace",
+      "manifest_version": "3.9.0"
+    },
+    "soultavern": {
+      "file": "SoulTavern-2.0.3.zip",
+      "root": "SoulTavern-2.0.3",
+      "sha256": "4fdc4e1d1e555ea7748b797ddf79cee0806323ddc1ba09fe2440a7937f4a7b7b",
+      "upstream": "https://github.com/imphillip/SoulTavern",
+      "manifest_version": "2.0.3"
+    }
+  }
+}

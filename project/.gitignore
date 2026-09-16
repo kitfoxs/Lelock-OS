@@ -1,0 +1,9 @@
+.runtime/
+lelock
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+.env*
+*.sqlite3*
+selected-companion*.json

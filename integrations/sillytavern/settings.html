@@ -1,0 +1,80 @@
+<div class="lelock-settings-wrapper">
+    <div class="inline-drawer">
+        <div class="inline-drawer-toggle inline-drawer-header">
+            <b>🛡️ Lelock OS — Agent Harness & MemPalace</b>
+            <div class="inline-drawer-icon fa-solid fa-circle-chevron-down down"></div>
+        </div>
+        <div class="inline-drawer-content">
+            <!-- Connection Status -->
+            <div class="lelock-card lelock-status-card">
+                <div class="lelock-status-header">
+                    <span class="lelock-badge" id="lelock_connection_badge">Checking connection...</span>
+                    <button id="lelock_btn_refresh" class="menu_button menu_button_icon" title="Refresh Connection">
+                        <i class="fa-solid fa-arrows-rotate"></i> Check
+                    </button>
+                </div>
+                <div class="lelock-meta-grid" id="lelock_meta_grid">
+                    <div><strong>Companion:</strong> <span id="lelock_companion_name">—</span></div>
+                    <div><strong>Scope:</strong> <span id="lelock_scope_val">—</span></div>
+                    <div><strong>Workspace:</strong> <span id="lelock_workspace_val" class="lelock-path">—</span></div>
+                    <div><strong>MemPalace Wing:</strong> <span id="lelock_wing_val">—</span></div>
+                </div>
+            </div>
+
+            <!-- Bridge Daemon Settings -->
+            <div class="lelock-setting-item">
+                <label for="lelock_daemon_url"><strong>Bridge Daemon Endpoint:</strong></label>
+                <input type="text" id="lelock_daemon_url" class="text_pole" placeholder="http://127.0.0.1:8780" />
+                <small class="notes">Default is <code>http://127.0.0.1:8780</code>. Start with <code>./project/lelock serve</code>.</small>
+            </div>
+
+            <!-- Character & Lorebook Sync -->
+            <div class="lelock-card lelock-action-card">
+                <h4>🎴 Character & Lorebook Sync</h4>
+                <p class="notes">Sync your current SillyTavern character card into Lelock OS and seed all its lorebook entries into your local MemPalace.</p>
+                <div class="lelock-checkbox-row">
+                    <label class="checkbox_label">
+                        <input type="checkbox" id="lelock_seed_lore_checkbox" checked />
+                        <span>Seed character lorebook entries into MemPalace</span>
+                    </label>
+                </div>
+                <button id="lelock_btn_sync_card" class="menu_button menu_button_primary">
+                    <i class="fa-solid fa-cloud-arrow-up"></i> Sync Active Character to Lelock OS
+                </button>
+                <div id="lelock_sync_feedback" class="lelock-feedback displayNone"></div>
+            </div>
+
+            <!-- Autonomous Memory Settings -->
+            <div class="lelock-card">
+                <h4>🧠 Autonomous MemPalace Recall</h4>
+                <div class="lelock-checkbox-row">
+                    <label class="checkbox_label">
+                        <input type="checkbox" id="lelock_auto_recall" checked />
+                        <span>Inject relevant MemPalace memories into prompt context</span>
+                    </label>
+                </div>
+                <div class="lelock-slider-row">
+                    <label for="lelock_recall_limit">Max recalled memories: <span id="lelock_recall_limit_val">3</span></label>
+                    <input type="range" id="lelock_recall_limit" min="1" max="10" value="3" step="1" />
+                </div>
+            </div>
+
+            <!-- Native Tool Calling Settings -->
+            <div class="lelock-card">
+                <h4>🛠️ Workspace Tools & Safe Proposals</h4>
+                <div class="lelock-checkbox-row">
+                    <label class="checkbox_label">
+                        <input type="checkbox" id="lelock_enable_tools" checked />
+                        <span>Register Lelock Workspace Tools with SillyTavern ToolManager</span>
+                    </label>
+                </div>
+                <p class="notes">
+                    Equips your companion with <code>lelock_write_text</code>, <code>lelock_read_text</code>, <code>lelock_recall</code>, and <code>lelock_remember</code>. Writes create reviewable proposals with interactive chat approval cards.
+                </p>
+                <button id="lelock_btn_view_pending" class="menu_button">
+                    <i class="fa-solid fa-list-check"></i> Inspect Pending Proposals
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

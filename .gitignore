@@ -1,0 +1,22 @@
+# Private engineering artifacts and local runtime state are not public source.
+private_lineage/
+upstream/
+receipts/
+project/.runtime/
+project/lelock
+**/__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+.env
+.env.*
+*.sqlite3
+*.sqlite3-*
+selected-companion*.json
+DELIVERY_REPORT.md
+NEXT_ACTION.md
+BUILD_STATE.json
+
+# Reviewed portable state only; local state above remains private.
+!handoff/
+!handoff/NEXT_ACTION.md

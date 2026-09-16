@@ -1,0 +1,211 @@
+/* Lelock OS SillyTavern Extension Stylesheet */
+
+.lelock-settings-wrapper {
+    margin-bottom: 10px;
+}
+
+.lelock-card {
+    background: rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    padding: 12px;
+    margin: 10px 0;
+}
+
+.lelock-status-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.lelock-badge {
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-size: 0.85em;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.lelock-badge.connected {
+    background: rgba(46, 204, 113, 0.25);
+    color: #2ecc71;
+    border: 1px solid #2ecc71;
+}
+
+.lelock-badge.disconnected {
+    background: rgba(231, 76, 60, 0.25);
+    color: #e74c3c;
+    border: 1px solid #e74c3c;
+}
+
+.lelock-meta-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    font-size: 0.9em;
+}
+
+.lelock-path {
+    font-family: monospace;
+    font-size: 0.85em;
+    word-break: break-all;
+}
+
+.lelock-setting-item {
+    margin: 10px 0;
+}
+
+.lelock-checkbox-row {
+    margin: 8px 0;
+}
+
+.lelock-slider-row {
+    margin: 8px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.lelock-feedback {
+    margin-top: 8px;
+    padding: 8px;
+    border-radius: 6px;
+    font-size: 0.9em;
+}
+
+.lelock-feedback.success {
+    background: rgba(46, 204, 113, 0.2);
+    color: #2ecc71;
+    border: 1px solid rgba(46, 204, 113, 0.4);
+}
+
+.lelock-feedback.error {
+    background: rgba(231, 76, 60, 0.2);
+    color: #e74c3c;
+    border: 1px solid rgba(231, 76, 60, 0.4);
+}
+
+/* ==========================================================================
+   In-Chat Proposal & Tool Approval Cards
+   ========================================================================== */
+
+.lelock-proposal-box {
+    margin-top: 10px;
+    padding: 12px;
+    border-radius: 8px;
+    background: rgba(20, 24, 33, 0.85);
+    border: 1px solid rgba(0, 195, 255, 0.3);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+    font-family: inherit;
+}
+
+.lelock-proposal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding-bottom: 6px;
+    margin-bottom: 8px;
+}
+
+.lelock-proposal-title {
+    font-weight: 700;
+    color: #00c3ff;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.lelock-proposal-path {
+    font-family: monospace;
+    font-size: 0.9em;
+    background: rgba(0, 0, 0, 0.3);
+    padding: 2px 6px;
+    border-radius: 4px;
+    color: #eee;
+}
+
+.lelock-proposal-diff-toggle {
+    cursor: pointer;
+    font-size: 0.85em;
+    color: #888;
+    text-decoration: underline;
+    margin: 6px 0;
+    display: inline-block;
+}
+
+.lelock-proposal-diff-toggle:hover {
+    color: #fff;
+}
+
+.lelock-proposal-content {
+    background: rgba(0, 0, 0, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 4px;
+    padding: 8px;
+    max-height: 240px;
+    overflow-y: auto;
+    font-family: monospace;
+    font-size: 0.85em;
+    white-space: pre-wrap;
+    word-break: break-all;
+    margin-bottom: 10px;
+}
+
+.lelock-proposal-actions {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.lelock-btn-approve {
+    background: #27ae60 !important;
+    color: #fff !important;
+    border: none !important;
+    padding: 6px 14px !important;
+    border-radius: 6px !important;
+    cursor: pointer !important;
+    font-weight: 600 !important;
+    transition: background 0.2s ease;
+}
+
+.lelock-btn-approve:hover {
+    background: #2ecc71 !important;
+    box-shadow: 0 0 10px rgba(46, 204, 113, 0.4);
+}
+
+.lelock-btn-reject {
+    background: #c0392b !important;
+    color: #fff !important;
+    border: none !important;
+    padding: 6px 14px !important;
+    border-radius: 6px !important;
+    cursor: pointer !important;
+    font-weight: 600 !important;
+    transition: background 0.2s ease;
+}
+
+.lelock-btn-reject:hover {
+    background: #e74c3c !important;
+}
+
+.lelock-proposal-status-pill {
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-size: 0.85em;
+    font-weight: 600;
+}
+
+.lelock-proposal-status-pill.approved {
+    background: rgba(46, 204, 113, 0.3);
+    color: #2ecc71;
+    border: 1px solid #2ecc71;
+}
+
+.lelock-proposal-status-pill.rejected {
+    background: rgba(231, 76, 60, 0.3);
+    color: #e74c3c;
+    border: 1px solid #e74c3c;
+}
