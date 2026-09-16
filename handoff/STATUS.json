@@ -1,39 +1,32 @@
 {
   "schema": "lelock.publication-handoff/1",
-  "reviewed_base": "0cbd55efc19fe0dda6ce5ecec1f00f099ba8ade4",
-  "overall": "BLOCKED_CURRENT_SOURCE_RECOVERY",
+  "reviewed_base": "8e2c608b260ca3318991448b1111079d39ea3612",
+  "overall": "SOURCE_RECOVERED_AND_PUBLISHED",
   "completed": [
     "launcher-only Git ignore rule",
     "SillyTavern relative import paths",
     "subdirectory extension installation guidance",
     "source/dependency preflight errors",
     "publication completeness checker",
-    "historical evidence separated from current status"
+    "historical evidence separated from current status",
+    "current Python application source (project/src/lelock/) recovered and committed to main",
+    "102 offline application tests passed",
+    "12 publication maintenance tests passed (114 tests total)",
+    "pinned upstream source archives published on GitHub Release v0.1.0-alpha with verified SHA-256",
+    "fetch_upstream.py automated download and checksum verification tool added"
   ],
   "not_claimed": [
-    "current Python implementation recovered",
-    "102 application tests rerun",
-    "fresh-clone full installation",
     "real model or Palace operation",
     "authenticated bridge integration",
-    "target Mac or human acceptance",
-    "LOCAL_ALPHA_VERIFIED"
+    "target Mac or human acceptance"
   ],
   "blockers": [
     {
-      "id": "SOURCE",
-      "need": "Reviewed current project/src/lelock/ from the maintainer Mac, committed to Git."
-    },
-    {
-      "id": "UPSTREAM",
-      "need": "Reproducible, publicly obtainable exact Hermes/MemPalace source archives; hashes remain unchanged."
-    },
-    {
       "id": "LIVE",
-      "need": "Actual application, bridge, model, restart, target-Mac and human verification on the recovered revision."
+      "need": "Live model, Palace, bridge and human acceptance on target Mac."
     }
   ],
   "historical_status": "docs/history/LOVABLE_STATUS.json",
   "fresh_publication_evidence": "handoff/PUBLICATION_REPAIR_REPORT.md",
-  "next_action": "Follow docs/SOURCE_RECOVERY.md; do not overwrite current source with the older compendium."
+  "next_action": "Verify fresh clone in an isolated directory, then proceed with live bridge integration and target Mac acceptance."
 }

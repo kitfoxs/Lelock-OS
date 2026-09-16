@@ -59,8 +59,8 @@ def main():
                       if not (PACKET/'upstream'/lock['sources'][name]['file']).is_file()]
     if missing_archives:
         fail('Exact upstream archives are missing: '+', '.join(missing_archives)+
-             '. --allow-network installs packages; it does not obtain these archives. '
-             'See project/QUICKSTART.md. No dependencies were installed.')
+             '. Run "python3 project/scripts/fetch_upstream.py" to download them, '
+             'or see project/QUICKSTART.md. No dependencies were installed.')
     runtime=PROJECT/'.runtime';runtime.mkdir(exist_ok=True)
     for name in ('hermes','mempalace'):
         item=lock['sources'][name];archive=PACKET/'upstream'/item['file']

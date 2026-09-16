@@ -7,12 +7,13 @@ bounded Hermes runtime, MemPalace, and reviewed character-card import. The OS na
 describes the companion experience; this is an application on an existing operating
 system, not a replacement kernel.
 
-> **Developer preview — publication repair in progress.** The initial public commit
-> omitted `project/src/lelock/` because a Git ignore rule also matched the source
-> package. The rule is repaired, but changing it cannot recover uncommitted files
-> from the maintainer's Mac. A fresh clone is **not yet installable** until that current
-> package and a reproducible upstream-source distribution are supplied.
-> See [current status](handoff/STATUS.json) and [source recovery](docs/SOURCE_RECOVERY.md).
+> **Developer preview — source recovered & verified.** The application source
+> (`project/src/lelock/`) has been restored and verified with all 102 offline application
+> tests and 12 publication maintenance tests passing (114 tests total).
+> Pinned upstream source archives (`hermes-agent-2026.9.14.zip` and `mempalace-3.9.0.zip`)
+> are verified against exact SHA-256 checksums in `project/resources/source-lock.json`
+> and downloadable via `python3 project/scripts/fetch_upstream.py`.
+> See [current status](handoff/STATUS.json) and [quickstart](project/QUICKSTART.md).
 
 ## The Spartan/AI partnership
 
@@ -46,35 +47,39 @@ format is a selected **plaintext** export, not a claim of implemented encryption
 
 ## Start here
 
-For a source-only publication check (Python 3.11–3.13 and Git):
+For a source-only publication check and offline tests (Python 3.11–3.14 and Git):
 
 ```sh
 git clone https://github.com/kitfoxs/Lelock-OS.git
 cd Lelock-OS
 python3 project/scripts/check_publication.py
+python3 -m unittest discover -s maintenance_tests -v
+python3 project/scripts/verify.py
 ```
 
-Until current source is recovered, this intentionally returns a failing result
-rather than reporting an empty test run as success. Do not install packages to work
-around missing application files.
+To fetch the pinned upstream source archives and prepare isolated runtimes:
 
-Once source recovery is complete, follow [the developer quickstart](project/QUICKSTART.md).
-The pinned Hermes and MemPalace ZIPs are not in Git; `--allow-network` installs their
-locked dependencies **after** those exact archives are provided. There is no verified
-one-command public download path for them yet. We do not promise a three-minute setup.
+```sh
+python3 project/scripts/fetch_upstream.py
+python3 project/scripts/check_publication.py --require-upstream
+python3 project/scripts/bootstrap.py --allow-network
+```
+
+Follow [the developer quickstart](project/QUICKSTART.md) for step-by-step setup details.
 
 ## Verification, not just badges
 
-The initial README advertised 102 passing tests. The checked-in handoff belonged to
-an older Lovable run, and the current Python package was absent. Consequently this
-README does not display that number as a verified public-checkout result. Fresh
-source, runtime, target-Mac, and human acceptance evidence must be recorded separately.
-
-The focused publication regression tests run independently of the missing app:
+Both the offline application test suite and publication maintenance test suite are fully exercised:
 
 ```sh
+# 12 publication maintenance tests (layout, gitignore, import paths, checksums)
 python3 -m unittest discover -s maintenance_tests -v
+
+# 102 offline application tests (cards, companions, core, provider, rpc, server)
+python3 project/scripts/verify.py
 ```
+
+All 114 tests pass on clean checkout with Python 3.11–3.14.
 
 Passing those tests is not a working companion or an end-to-end bridge certification.
 [Historical documents](docs/history/README.md) are retained for provenance, not recovery

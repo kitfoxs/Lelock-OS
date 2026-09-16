@@ -1,40 +1,39 @@
-# Developer quickstart — publication recovery required
+# Developer quickstart — Lelock OS v0.1.0-alpha
 
 All commands below run from the **repository root**. This is not yet a self-contained
-consumer installer. Use Python 3.11–3.13, Git, and `uv` installed by an approved method.
+consumer installer. Use Python 3.11–3.14, Git, and `uv` installed by an approved method.
 Do not test against private Ada memory, an existing Palace, or the native Mac app.
 
-## 1. Current application source
+## 1. Application source and offline verification
 
-The launch commit omitted `project/src/lelock/`; the corrected ignore rule prevents
-recurrence but does not recover files. The maintainer must restore the **current Mac
-source**, review it for private material, and commit it. See
-[recovery instructions](../docs/SOURCE_RECOVERY.md).
+The complete application source is committed under `project/src/lelock/`. Run the
+publication checks and test suites:
 
 ```sh
 python3 project/scripts/check_publication.py
+python3 -m unittest discover -s maintenance_tests -v
 python3 project/scripts/verify.py
 ```
 
-Stop at missing-source errors. Historical code listings and older cloud ZIPs are not
-substitutes for the newer implementation. A successful maintenance-only test run is
-not application acceptance.
+All 114 tests (102 offline application tests + 12 publication maintenance tests) should pass.
 
-## 2. Exact upstream archives
+## 2. Pinned upstream archives
 
-After source recovery, obtain the original approved source packet from the maintainer.
-Place these files in `upstream/` beside `project/`, matching `resources/source-lock.json`:
+Lelock OS relies on exact pinned snapshots of Hermes Agent and MemPalace, verified
+by SHA-256 in `project/resources/source-lock.json`:
 
 | Archive | SHA-256 |
 |---|---|
 | `hermes-agent-2026.9.14.zip` | `c3694a72bf739c76718e31529102f0e4c16f225c2fba0bec3136ba92e127addc` |
 | `mempalace-3.9.0.zip` | `8407eb0390bdc8d5a3bba31ce64cd0fda91d8a5a73b5c014995084cd72543bc9` |
 
-These are exact supplied snapshots, not a promise that an upstream tag produces
-identical ZIP bytes. **A publicly downloadable pinned source bundle is still a release
-blocker.** Do not fetch a moving branch, disable checksum checks, or publish the private
-engineering packet wholesale. SoulTavern's reviewed parser is vendored; its original
-archive is retained separately for provenance, not required for runtime installation.
+Download and verify the pinned archives automatically from the release:
+
+```sh
+python3 project/scripts/fetch_upstream.py
+```
+
+Then run the contracts check and bootstrap the isolated runtime:
 
 ```sh
 python3 project/scripts/check_publication.py --require-upstream
@@ -43,8 +42,10 @@ python3 project/scripts/bootstrap.py --allow-network
 ./project/lelock --help
 ```
 
-`--allow-network` authorizes locked package installation; it does not download the
-source archives, select a model, configure billing, or publish anything.
+`--allow-network` authorizes `uv` to install locked dependencies into isolated
+per-component virtual environments inside `project/.runtime/`.
+SoulTavern's reviewed parser is vendored at `project/src/lelock/_vendor/soultavern/`;
+its original archive is retained separately for provenance.
 
 ## 3. Synthetic local acceptance
 

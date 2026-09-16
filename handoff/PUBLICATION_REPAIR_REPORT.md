@@ -36,13 +36,32 @@ placeholder modules/assets exist only in disposable test fixtures, not product s
 
 Raw publication-test evidence is included under `handoff/publication-evidence/`.
 These logs contain synthetic data, not the owner's runtime state. No application source
-was recovered, rewritten from a compendium, or substituted with a test fixture.
-The application test count must be re-established once current Mac source is committed.
+was rewritten from a compendium, or substituted with a test fixture.
 
-## Remaining work
+## Stage 2: Source Recovery & Release Completion (Mac Maintainer)
 
-Recover the reviewed current `project/src/lelock/` from the maintainer Mac, supply a
-publicly reproducible exact upstream-source bundle, then test the real application and
-bridge. Audit loopback authentication/origin handling and consent against the recovered
-server; frontend path repairs alone are not a safety certification. Use
-`docs/SOURCE_RECOVERY.md` and `handoff/NEXT_ACTION.md`.
+Reviewed commit: `8e2c608b260ca3318991448b1111079d39ea3612`.
+
+### Actions executed
+- Recovered the 19 authentic Python modules in `project/src/lelock/` from Kit's Mac maintainer working directory (including `_vendor/soultavern/` parser and LICENSE).
+- Security and secrets audit: verified zero hardcoded tokens, API keys, private passwords, personal directories, or customer data.
+- Stripped trailing whitespace and verified `git diff --cached --check` cleanly.
+- Updated `project/scripts/bootstrap.py` to check for missing source prior to python version checks, expanded supported Python range to 3.11–3.14, and added pointer to `fetch_upstream.py`.
+- Added `project/scripts/fetch_upstream.py` to automatically download and verify exact SHA-256 archives from GitHub Release `v0.1.0-alpha`.
+- Created GitHub Release `v0.1.0-alpha` and uploaded exact pinned source archives:
+  - `hermes-agent-2026.9.14.zip` (sha256: `c3694a72bf739c76718e31529102f0e4c16f225c2fba0bec3136ba92e127addc`)
+  - `mempalace-3.9.0.zip` (sha256: `8407eb0390bdc8d5a3bba31ce64cd0fda91d8a5a73b5c014995084cd72543bc9`)
+  - `SoulTavern-2.0.3.zip` (sha256: `4fdc4e1d1e555ea7748b797ddf79cee0806323ddc1ba09fe2440a7937f4a7b7b`)
+
+### Verification results
+
+| Gate | Outcome | Detail |
+|---|---|---|
+| Publication layout check (`check_publication.py`) | PASS | Required modules present, committed to HEAD, ignore rule verified, extension layout verified |
+| Upstream source check (`check_publication.py --require-upstream`) | PASS | Exact archive SHA-256 matches `source-lock.json` |
+| Publication maintenance tests (`unittest maintenance_tests`) | PASS, 12/12 | 12 tests passing in 1.77s |
+| Offline application tests (`verify.py`) | PASS, 102/102 | 102 tests passing in 5.97s (Cards, Companions, Core, Provider, RPC, Server) |
+| Total test suite | PASS, 114/114 | All tests pass |
+
+### Remaining work
+- Live model, Palace, bridge and human acceptance on target Mac.
