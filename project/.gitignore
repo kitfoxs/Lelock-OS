@@ -1,5 +1,6 @@
 .runtime/
-lelock
+# Ignore only the generated launcher, never src/lelock/.
+/lelock
 __pycache__/
 *.py[cod]
 *.egg-info/

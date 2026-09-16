@@ -1,10 +1,10 @@
-import { getContext, extension_settings, renderExtensionTemplateAsync } from '../../extensions.js';
-import { eventSource, event_types, setExtensionPrompt, extension_prompt_roles, saveSettingsDebounced } from '../../../script.js';
-import { ToolManager } from '../../tool-calling.js';
-import { SlashCommandParser } from '../../slash-commands/SlashCommandParser.js';
-import { SlashCommand } from '../../slash-commands/SlashCommand.js';
-import { SlashCommandArgument, SlashCommandNamedArgument, ARGUMENT_TYPE } from '../../slash-commands/SlashCommandArgument.js';
-import { Popup } from '../../popup.js';
+import { getContext, extension_settings, renderExtensionTemplateAsync } from '../../../extensions.js';
+import { eventSource, event_types, setExtensionPrompt, extension_prompt_roles, saveSettingsDebounced } from '../../../../script.js';
+import { ToolManager } from '../../../tool-calling.js';
+import { SlashCommandParser } from '../../../slash-commands/SlashCommandParser.js';
+import { SlashCommand } from '../../../slash-commands/SlashCommand.js';
+import { SlashCommandArgument, SlashCommandNamedArgument, ARGUMENT_TYPE } from '../../../slash-commands/SlashCommandArgument.js';
+import { Popup } from '../../../popup.js';
 
 export { MODULE_NAME };
 

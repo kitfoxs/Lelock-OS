@@ -1,0 +1,48 @@
+{
+  "source": "Supplied SillyTavern-1.19.0.zip",
+  "checks": [
+    {
+      "import": "../../../extensions.js",
+      "target": "public/scripts/extensions.js",
+      "exists_in_supplied_sillytavern": true,
+      "missing_named_exports": []
+    },
+    {
+      "import": "../../../../script.js",
+      "target": "public/script.js",
+      "exists_in_supplied_sillytavern": true,
+      "missing_named_exports": []
+    },
+    {
+      "import": "../../../tool-calling.js",
+      "target": "public/scripts/tool-calling.js",
+      "exists_in_supplied_sillytavern": true,
+      "missing_named_exports": []
+    },
+    {
+      "import": "../../../slash-commands/SlashCommandParser.js",
+      "target": "public/scripts/slash-commands/SlashCommandParser.js",
+      "exists_in_supplied_sillytavern": true,
+      "missing_named_exports": []
+    },
+    {
+      "import": "../../../slash-commands/SlashCommand.js",
+      "target": "public/scripts/slash-commands/SlashCommand.js",
+      "exists_in_supplied_sillytavern": true,
+      "missing_named_exports": []
+    },
+    {
+      "import": "../../../slash-commands/SlashCommandArgument.js",
+      "target": "public/scripts/slash-commands/SlashCommandArgument.js",
+      "exists_in_supplied_sillytavern": true,
+      "missing_named_exports": []
+    },
+    {
+      "import": "../../../popup.js",
+      "target": "public/scripts/popup.js",
+      "exists_in_supplied_sillytavern": true,
+      "missing_named_exports": []
+    }
+  ],
+  "live_browser_executed": false
+}

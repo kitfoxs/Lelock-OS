@@ -3,6 +3,13 @@
 import json,os,platform,subprocess,sys,time
 from pathlib import Path
 P=Path(__file__).resolve().parents[1]
+required=('__init__.py','__main__.py','cli.py','runtime.py','palace.py','hermes_plugin.py')
+missing=[name for name in required if not (P/'src/lelock'/name).is_file()]
+if missing:
+    print(json.dumps({'gate':'offline','status':'BLOCKED','exit_code':2,
+          'reason':'Current application source is missing; see docs/SOURCE_RECOVERY.md.',
+          'missing':missing,'tests_executed':0},indent=2))
+    raise SystemExit(2)
 receipt=P.parent/'receipts';receipt.mkdir(exist_ok=True)
 env=dict(os.environ);env['PYTHONPATH']=str(P/'src')+os.pathsep+str(P/'tests')
 started=time.time()
