@@ -1,0 +1,7 @@
+#lelock_v03_panel { padding: 1rem; border: 1px solid var(--SmartThemeBorderColor,#777); border-radius: .6rem; margin: .5rem 0; }
+#lelock_v03_panel label { display: flex; flex-wrap: wrap; align-items: center; gap: .5rem; margin: .5rem 0; }
+#lelock_v03_panel input:not([type=checkbox]), #lelock_v03_panel select, #lelock_v03_panel textarea { max-width: 100%; flex: 1; min-width: 8rem; }
+#lelock_v03_panel button { padding: .35rem .65rem; margin: .2rem; cursor: pointer; }
+#lelock_v03_panel pre { white-space: pre-wrap; overflow-wrap: anywhere; max-height: 20rem; overflow: auto; }
+#lelock_v03_panel article { border: 1px solid currentColor; padding: .6rem; margin-top: .4rem; }
+#lelock_v03_panel [data-caps] { display: grid; grid-template-columns: repeat(auto-fit,minmax(12rem,1fr)); gap:.3rem; }
