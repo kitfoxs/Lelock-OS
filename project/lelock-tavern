@@ -1,0 +1,7 @@
+#!/usr/bin/env python3
+"""Repository-relative launcher, independent of cwd; existing v0.2 source remains required."""
+from pathlib import Path
+import sys
+sys.path.insert(0,str(Path(__file__).resolve().parent/'src'))
+from lelock_tavern.cli import main
+main()

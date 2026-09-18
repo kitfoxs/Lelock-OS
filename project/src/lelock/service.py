@@ -119,6 +119,10 @@ class Service:
         self.journal.finish(ident,'done',result)
         return result
 
+    def reject(self,ident: str):
+        self.journal.reject(ident)
+        return {'status':'rejected','proposal_id':ident}
+
     def flush(self):
         for item in self.journal.pending():
             record=json.loads(item['payload'])

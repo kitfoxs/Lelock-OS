@@ -1,0 +1,1 @@
+{"display_name":"Lelock Character Agents v0.3","loading_order":5,"js":"index.js","css":"integrations/tavern-v03/style.css","author":"Kit Olivas & Ada Marie","version":"0.3.0a1","homePage":"https://github.com/kitfoxs/Lelock-OS","auto_update":false,"generate_interceptor":"lelockV03Intercept","hooks":{"activate":"onActivate","disable":"onDisable"}}

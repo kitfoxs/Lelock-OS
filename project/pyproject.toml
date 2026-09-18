@@ -13,6 +13,7 @@ dependencies = []
 
 [project.scripts]
 lelock = "lelock.cli:main"
+lelock-entity = "lelock_entity.cli:main"
 
 [project.entry-points."hermes_agent.memory_providers"]
 lelock = "lelock.hermes_plugin:register"

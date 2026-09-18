@@ -36,13 +36,14 @@ def dispatch_batch(service,assistant_message,messages):
         else:
             try: args=json.loads(raw)
             except (ValueError,TypeError): args=None
-            result=service.dispatch(name,args)
+            result=service.dispatch_tool_call(name,args,call.id) if hasattr(service,'dispatch_tool_call') else service.dispatch(name,args)
         messages.append({'role':'tool','tool_call_id':call.id,'name':name,'content':result})
 
 class HermesRuntime:
-    def __init__(self,service,*,temporary=False):
+    def __init__(self,service,*,temporary=False,schemas=None,policy=None):
         self.service=service;self.home=service.home/'runtime'/'hermes'
         self.temporary=temporary
+        self.schemas=json.loads(json.dumps(SCHEMAS if schemas is None else schemas))
         private_dir(self.home)
         cfg=service.config
         key=os.environ.get(cfg.api_key_env,'')
@@ -77,7 +78,7 @@ class HermesRuntime:
                      api_mode='chat_completions',model=cfg.model,enabled_toolsets=['memory'],
                      save_trajectories=False,verbose_logging=False,quiet_mode=True,
                      skip_context_files=True,load_soul_identity=False,skip_background_review=True,
-                     ephemeral_system_prompt=POLICY+'\n<chosen-identity>\n'+soul+'\n</chosen-identity>\nMode: '+cfg.mode,
+                     ephemeral_system_prompt=(POLICY if policy is None else policy)+'\n<chosen-identity>\n'+soul+'\n</chosen-identity>\nMode: '+cfg.mode,
                      max_iterations=cfg.max_iterations,max_tokens=cfg.max_output_tokens,
                      run_budget_seconds=cfg.run_budget_seconds,session_id=session['id'],
                      platform='lelock',fallback_model=None,checkpoints_enabled=False)
@@ -86,13 +87,13 @@ class HermesRuntime:
         if [p.name for p in providers]!=['lelock'] or getattr(providers[0],'service',None) is not service:
             self.agent.close();raise LelockError('Lelock memory provider did not activate; refusing a generic fallback.')
         self.provider=providers[0]
-        self.agent.tools=[{'type':'function','function':s} for s in SCHEMAS]
-        self.agent.valid_tool_names={s['name'] for s in SCHEMAS}
+        self.agent.tools=[{'type':'function','function':s} for s in self.schemas]
+        self.agent.valid_tool_names={s['name'] for s in self.schemas}
         self.assert_surface()
 
     def assert_surface(self):
         actual={t.get('function',{}).get('name') for t in self.agent.tools}
-        if actual!={s['name'] for s in SCHEMAS}: raise LelockError('Tool surface drifted; fail closed.')
+        if actual!={s['name'] for s in self.schemas}: raise LelockError('Tool surface drifted; fail closed.')
         if self.agent.api_mode!='chat_completions': raise LelockError('Unsupported runtime API mode.')
 
     def turn(self,message: str):

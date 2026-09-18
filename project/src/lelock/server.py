@@ -208,6 +208,10 @@ class LelockBridgeServer:
         self._thread: threading.Thread | None = None
 
     def start(self, blocking: bool = True) -> None:
+        raise LelockError(
+            "Legacy unauthenticated bridge is quarantined. Use python -m lelock_entity serve "
+            "with an explicit owned profile and migrate the client to the v1 authenticated API."
+        )
         handler = type('ConfiguredLelockBridgeHandler', (LelockBridgeHandler,), {'service': self.service})
         self.server = http.server.ThreadingHTTPServer((self.host, self.port), handler)
         if blocking:

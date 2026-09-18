@@ -69,13 +69,19 @@ class CompanionsTest(unittest.TestCase):
         self.assertEqual(cfg.companion_name, 'Cinder Ashgrave')
 
     def test_seed_companion_lore(self):
-        service = make_service(self.home)
+        fiction_root = self.root / 'fiction'
+        service = make_service(fiction_root, scope='fiction')
         comp = find_companion('amara_sunscale')
         lore_res = seed_companion_lore(service, comp)
         self.assertEqual(lore_res['seeded_entries'], 8)
         self.assertTrue(len(lore_res['topics']) > 0)
         hits = service.recall('studio')
         self.assertTrue(len(hits['memories']) > 0)
+
+        personal_service = make_service(self.root / 'personal', scope='personal')
+        skipped = seed_companion_lore(personal_service, comp)
+        self.assertEqual(skipped['seeded_entries'], 0)
+        self.assertIn('skipped', skipped)
 
 
 if __name__ == '__main__':
