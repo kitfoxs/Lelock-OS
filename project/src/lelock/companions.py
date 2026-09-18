@@ -94,6 +94,8 @@ def activate_companion(home: Path, query: str) -> dict[str, Any]:
 
 
 def seed_companion_lore(service: Any, comp: dict[str, Any]) -> dict[str, Any]:
+    if service.scope != 'fiction':
+        return {'seeded_entries': 0, 'topics': [], 'skipped': 'Lore import requires an explicit fiction profile; not personal facts.'}
     from .service import make_record
     wi_path = get_companion_world_info_path(comp)
     if not wi_path:
@@ -116,7 +118,7 @@ def seed_companion_lore(service: Any, comp: dict[str, Any]) -> dict[str, Any]:
         if not content:
             continue
         text_content = f"[{comp['name']} Lore — {comment}] {content}" if comment else f"[{comp['name']} Lore] {content}"
-        rec = make_record(text_content, kind=kind)
+        rec = make_record(text_content, kind=kind, scope=service.scope, source='character-lore-import')
         service.store(rec)
         if comment:
             topics.append(comment)
